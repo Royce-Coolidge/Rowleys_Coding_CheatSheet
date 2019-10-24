@@ -1,7 +1,7 @@
 ## Marks Amazing Notes
 
 
-* [Laravel Notes (PDF)](https://github.com/elev8now/CodeCheat/raw/master/docs/assets/DevelopMe_Laravel.pdf)
+* [Laravel Notes (PDF)](https://github.com/Royce-Coolidge/Rowleys_Coding_CheatSheet/raw/master/docs/assets/laravel_api.pdf)
 
 # Laravel
 

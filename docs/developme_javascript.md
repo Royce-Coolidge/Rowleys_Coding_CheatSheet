@@ -1,7 +1,7 @@
 ## Marks Amazing notes
 
-* [JavaScript Fundamentals (PDF)](https://github.com/elev8now/CodeCheat/raw/master/docs/assets/DevelopMe_Javascript.pdf)
-* [Javascript in the Browser (PDF)](https://github.com/elev8now/CodeCheat/raw/master/docs/assets/DevelopMe_Javascript_DOM.pdf)
+* [JavaScript Fundamentals (PDF)](https://github.com/Royce-Coolidge/Rowleys_Coding_CheatSheet/raw/master/docs/assets/javascript_fundamentals.pdf)
+* [Javascript in the Browser (PDF)](https://github.com/Royce-Coolidge/Rowleys_Coding_CheatSheet/raw/master/docs/assets/javascript_dom.pdf)
 
 
 ## Programming Fundamentals
