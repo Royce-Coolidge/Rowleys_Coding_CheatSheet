@@ -1,5 +1,8 @@
 # Git & GitHub
 
+git reflog
+git checkout #983h489
+// takes you to previous version of your doc
 * * *
 
 ## Git setup
@@ -77,15 +80,6 @@ A tool (software) that allows us to:
 -   version manage anything (text files, video, images)
 -   run everything on the command line (Graphical User Interfaces, or GUI's are available)
 
-### Module Outline
-
--   Introduction to version management
--   Git architecture and how it works
--   Basic Git commands
--   Git in the real world, giving it a go!
--   Best practice for use
--   Git workflows and project strategy
--   Workflows applied
 
 ### Why version manage?
 
@@ -222,19 +216,7 @@ pulling down from the central project repository and updating the branch you are
 7.  Push changes
 
 * * *
-
-## Exercise 1
-
-### What are we going to do?
-
-1.  Create a project repository on our GitHub accounts
-2.  Create a project directory on your machine
-3.  Start version managing it with Git
-4.  Add a remote repo
-5.  Start adding files to our project
-6.  Add and commit those files
-7.  Push those files to GitHub
-    make changes to the files and commit them
+Always use Clone with SSH when linking github to local project folder.
 
 ### To consider: our first commit
 
@@ -257,7 +239,29 @@ There can be only 1 first commit on a project, so you should plan for this to ei
 
 **Pro tip:** drag folder into terminal to get the path
 
-### Commands we'll need
+### Process
+
+git init
+git remote add origin
+git add {file name} - adds file to staging area for next commit.
+git add * - add all changed files.
+git fetch
+git checkout master
+git commit -m 'message'
+git commit -am 'message' - adds all of changed files, but you can't choose which ones.
+git push
+git status - see what's going on
+git rev-parse HEAD - gives checksum of version
+git reflog - shows a reference log
+git clone {repository url} {folder name}
+
+Conflicts:
+get push rejection
+do git pull before git push
+resolve conflicts, then push again.
+
+git diff gives an insight into differences between current local files and last snapshot locally.
+
 
 #### Option 1: first commit on GitHub
 
@@ -274,13 +278,14 @@ $ git push
 
 #### Option 2: first commit on your computer
 
+If you have been working remotely on your computer prior to creating github repository. 
 ```bash
 # run as separate commands
 $ git init
 $ git remote add origin {repository URL}
 $ git add {filename}
 $ git commit -m "adding my first file"
-$ git push
+$ git push  -u origin master (only for first commit)
 ```
 
 #### Using the GitHub interface
@@ -354,6 +359,8 @@ see what state your files are in
 `git rev-parse HEAD`
 
 `git reflog`
+
+shows a reference log
 
 ### Command line cheat sheet
 

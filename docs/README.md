@@ -1,2 +1,2 @@
-# developme_notes
-Notes
+# Rowley's Cheat Sheet
+Notes from Developme Course

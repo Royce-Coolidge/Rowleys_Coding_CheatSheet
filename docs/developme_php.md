@@ -1,5 +1,68 @@
 # PHP & the Backend
 
+
+#### The Basics
+
+
+**Store a variable**
+$variable = "Hello";
+```
+// echo 
+var_dump($variable)
+```
+**Concatenate a string**
+```
+$variable = "Hello"."World";
+```
+
+**Write and call a funtion**
+```
+function getName($name) {
+    return $name;
+}
+
+var_dump(getName('rowley'));
+```
+
+**Write an array and access data from it**
+```
+$arrary = [
+'key' => '0'
+]
+
+$array['key']
+```
+**Create a Class**
+
+```
+Class Person 
+{
+    public $fname;
+    public $sname;
+
+    function __construct($fname, $sname) 
+    {
+        $this->fname = $fname;
+        $this->sname = $sname;
+
+    }
+
+    public funtion getName() 
+    {
+        return $this->fname . " " . $this->$sname;
+    }
+}
+
+$rowley = new Person('Rowley', 'Thompson');
+
+var_dump($rowley)
+
+var_dump($rowley->getName())
+```
+
+
+
+
 #### We'll start to be strict on:
 
 -   Code is correctly indented and tidy
@@ -2012,3 +2075,180 @@ Cmnd_Alias VAGRANT_HOSTS_REMOVE = /usr/bin/sed -i -e /*/ d /etc/hosts
 ```
 
 Then `Ctrl+X` then `y` then `[Enter]` to save changes
+
+
+## Classes
+
+### Basic Usage
+- A class is an abstract representation of an object instance
+- e.g. `Person` class lets us create instances representing different people
+- Demo Person class
+- Similar to JS: except visibility and properties
+- No closing tags
+- Mention PSR-2 Style
+- Demonstrate using: `->` instead of `.`
+
+### `$this`
+- Demonstrate using `$this`
+- Demonstrate chaining
+- used to access private properties
+
+### Properties
+- Demonstrate properties: with defaults and without
+
+### Visibility
+- private, public, protected
+**private:** Only have access to it if called within the object with `$this`
+**public:** when i have an object instance, i have access to it.
+**protected:** kinda both of the above. not accessible from outside the class. but accessible to inherited ??
+
+- should always use private for properties
+
+## Static -  doens't belong to a specific object instance, belongs to class
+
+- Makes it clear that function is about that type of thing
+- Person::lastNames() method
+- Can't use `$this` in `static`, so no `private` access
+- Paamayim Nekudotayim: `::`
+- Show `static` keyword: breakout last name map into separate function
+- Mention `self`: `static` - called in, `self` - written in
+- `static` properties: useful for caching. There always there. storing a value thats already been worked out. 
+
+
+## Namespaces
+- `require_once` to include files
+- `require` vs `include`: `include` will show error, but keep on running PHP
+
+`include()` connects files so you place classes in separate files and connect them with include. 
+
+USE REQUIRE instead.
+
+difference is with include, if it doesnt find a file it echos out an error message. With require, if it  can't find a file it just stops. good indicator that file hasn't been included, rather than jumbled un-related error messages.
+
+
+### Naming Collisions
+- Two `Post` classes
+- Could name: `BlogPost` and `SlackPost`
+- No control over libraries/packages
+- Old days: add company name and use underscores
+
+### Namespaces
+- Like a directory on computer: can have files with same name in different directories
+- Declare `namespace` at top of file: `namespace Blog\Data\Post`
+- Then use with `new Blog\Data\Post()`
+- Can use `use` to shorten: `use Blog\Data\Post`
+- If in same namespace don't need `use`
+- Aliasing namespaces. eg use `Flippy\Flappy\Floppy\Post as FFFPost`
+
+
+declare class in same file u  use namespace
+
+where you USE that class - thats were you use the 
+
+USE statement required if files that you want to link are in a different namespace
+
+
+### Autoloading
+- Back in day would have a big list of files
+- Now can tell PHP how to find a class
+- Use Composer to do it for us
+
+
+## Composer
+- PHP package manager
+- Handles autoloading of libraries but also our own code
+- `composer init -n`
+- PSR-4 Autoloading Standard
+1. Add autoload property:
+
+    ```json
+    "autoload": {
+       "psr-4": {"App\\": "app/"}
+    },
+    "require": {}
+    ```
+2. `composer install`
+3. `composer dump-autoload`
+- Add include: `include_once __DIR__ . '/vendor/autoload.php';`
+- Demonstrate
+- Uppercase naming
+
+### Libraries
+- packagist.org
+- add `vendor` to `.gitignore`
+-  dump() like console.log = outputs results
+- Symfony var-dumper: `symfony/var-dumper` - `dump()` and `dd()`
+- Laravel Collection: `illuminate/support` - 
+-  `collect()` =
+-  `map()` = 
+-  `filter()`= 
+-  `reduce()`=
+-  `pluck()` = 
+- Carbon (installed with Illuminate Support) =
+    `Carbon::createFromDate(1984, 4, 16)->age`,
+
+    `(new Carbon("2016"))->addYears(4);`
+
+-  dump() like console.log = outputs results
+
+
+## OOP
+- So far everything procedural
+- Need state in bigger apps
+- Object-Oriented Programming is one solution
+- Encapsulation: keep related properties and methods in one places
+- Black boxes passing messages
+- PHP wasn't really OO until 2009, hence older systems/libraries
+
+### Classes
+- We can use classes/objects to store related data
+    - `sendMail($to, $from, $message)` function - but need more options
+    - `sendMail()` using globals - yuck
+    - `Mail->send()` using an object
+- Need to start using objects somewhere, bootstrap file - get stuff going and include autoload
+
+### Types
+- An object of class X, can be thought of has being the X type
+- Type declaration in methods/functions
+- e.g. `MailingList->sendWith(Mail $mail)`
+- Try sending in wrong sort of thing
+- Not much good, as limited to `Mail` class
+
+### Polymorphism
+- What if we want `Mail` and `MailChimp`?
+- Two classes have *enough* in common to be used in a specific context
+- Inheritance
+- Interfaces
+
+- diferrent classES, that DO different thigs, but you speak to them in the SAME WAY!
+
+**The way they speak. same request, but very different resposnses.**
+
+### Inheritance
+- `Mailer` parent class: with `to()` and `from()`, other two inherit and add `send()`
+- Update `MailingList` to use `Mailer`
+- But could instance `Mailer` or create child with no `send()` method
+- Abstract classes: make `Mailer` abstract
+- Overriding the `to()` method in `MailChimp`
+- Using `parent::` to call parent class
+- Intuitive appeal of inheritance: `Anmial`, `Mammal`, `Primate`, `Person`
+-  use `protected` for class properties of parent classes ONLY when ur using inheritance
+
+### Interfaces
+- Create `MailerInterface`
+- Update `MailingList`
+- Class can implement multiple interfaces, only have one parent
+- Message passing: methods and parameters - proper encapsulation
+- Inheritance often means knowing about inside of an object
+-  Another way of guaranteeing polymorphic behaviour.
+**drawbacks = have to repeat code in the interface**
+-  all methods in interface MUST be public
+
+### Inheritance Tax
+- Most books focus on inheritance
+- Ok to inherit from library classes, they do most the work
+- Don't start with an abstract class, write at least three classes that share identical code before using inheritance
+- The `Mammal` class actually kind of useless
+- Composition over inheritance: use interfaces and shared classes
+- Law of Demeter
+**drawback = loses encap[sulation, making code very hard to change later on, as each layer of inheritance relys on the former. Changesd to high layer of inheritance could break the code for all the layers below**
