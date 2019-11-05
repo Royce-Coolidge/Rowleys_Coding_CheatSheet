@@ -1,9 +1,8 @@
-### Start building Apps! the only way to learn React and Redux. Priority
+## Marks Amazing Notes
+* [React/Redux Notes (PDF)](https://github.com/Royce-Coolidge/Rowleys_Coding_CheatSheet/raw/master/docs/assets/react_redux.pdf)
 
-- Calculator App
-- Blog App
-- Trello to-do type App
 
+#  Redux
 Moving on from Programming to Software Architectecture. Need to be a good programmer to be a software architect. About putting together individual algorithms in an app.
 
 Only way to learn software architecture is to build shitty software, make loads of mistakes and learn from them!
@@ -14,7 +13,6 @@ React designed to build indicvidual components. fine for simple apps but complic
 
 Simple apps we'll be making this week could probably be done with just React, but we could make trello app with redux, couldn't with just React.
 
-
 For complex interactions between components, the logical conclusion is that the state be lifted to the top-level component (App.js), so a umbrella parent component gets passed all the states. 
 
 In redux, we remove this umbrella parent for state outside of the 
@@ -23,37 +21,41 @@ principle of MVS - Model View Controller: Data and UI separated, completely diff
 
 Redux does the Data, React does the UI. React Redux allows them to communicate with each other
 
-This is called SEPARATION OF CONCERNS. 
+This is called **separation of concerns** 
 React is a UI library
 Redux is a state management library
 
-Step by Step:
+**Start building Apps! the only way to learn React and Redux. Priority**
 
-1. npm init react-app app-name
-2. npm start - only need to do this once
+- Calculator App
+- Blog App
+- Trello to-do type App
+
+## Setting up React / Redux App:
+
+1. `$ npm init react-app app-name`
+2. `$ npm start` - only need to do this once
 3. cd ./
 4. Bootstrap cdn link in index.html <head>
-5. npm install redux
+5. `$ npm install redux`
 6. 
 7. index.js - spearate from React - place to do our state management.
-8. create initial state variable in index.js
-9. Time for our first Reducer 
 
+## The Initial State
+- create initial state object literal. create Data/initial.js
+**NEXT STEP** Time for our first Reducer 
 
-## Reducer...
-gets called by store, whenever an *action* is *dispatched*
+##  The Reducer
+- gets called by store, whenever an **action** is **dispatched**. It gets given two values, (current version of the state,  and a action that was dispatched)
 
-It gets given two values, (current version of the state,  and a action that was dispatched)
-
-`let reducer = (state, action)`
-
-State will change but not the structure, always have the same keys.
-
-Action is also just an object with one property, `type`
-
-use it using a switch statement, on action
-
+```js
+let reducer = (state, action)
 ```
+
+- State will change but not the structure, always have the same keys.
+- *Action* is also just an object with one property, `type`
+
+```js
 let reducer = (state, action) => {
 	switch(action.type) {
 	case "increment": return {...state, count: count:state.count + 1};
@@ -67,7 +69,7 @@ let newState = reducer(initial, { type: 'increment'})
 CAN'T mutate state. must create new object with spead operator. if you don't state won't render properly.
 
 KEY RULES: 
-- if something has changed you neeed to retun a new object. CANNOT MUTATE THE STATE DIRECTLY.
+- if something has changed you need to return a new object. CANNOT MUTATE THE STATE DIRECTLY.
 
 Generally you will be using functional composition to write pure functions 
 
@@ -75,82 +77,86 @@ Generally you will be using functional composition to write pure functions
 
 - reducer always returns copy of the state.
 
-10. reducer uses .type of the action dispatched in switch statement
-11. creat a store to store state
+
+**NEXT STEP**  create a store to store state
 
 
-## the Store ... is a wrapper around our STATE
+## The Store 
 
-It allows us to dispatch actions which will change the state.
+- This is a wrapper around our state: it allows us to dispatch actions, which will change the state, and subscribe to any changes, so we can get the latest state. Importantly, can’t access the state directly as it’s wrapped inside the store.
 
-`import { CreateStore } from 'redux';`
+```js
+import { CreateStore } from 'redux';
 
-`let store = createStore(reducer, initial);`
-
-pass it initial state and the reducer function. 
+// We can then pass the initial state and reducer to createStore, which gives us back a new Redux store:
+let store = createStore(reducer, initial);
+```
+- We pass the store the initial state and the reducer function. 
 call the reducer funtion, passes in the current state and updates the state.
 
-12. create a subsciber to moniter changes
+**NEXT STEP**  create a subsciber to moniter changes
 
+## Subscribing 
 
-## Subscribing ...tell us when state changes
+- we subscribe to the store to let us know when the state changes
 
-We pass it a function (getState) that runs whenever the state change.
-
-
-`store.subscribe(store.getState())`
-
-13. dispatcher to call the reducer 
-
-## Actions : Dispatching...
-
-Actions are just an object literal with a type property.
-
-need to call the function, we ask store to do this for us
-
-`store.dispatch({ type: "increment"});`
-
-Only way to change the state is by dispatching an action.
-Each time we dispatch an action the store runs the reducer function,
-which looks at the *action type property* and transform the state appropirately.
-
-dispatches are used when a user action is done
-
-
-this calls the reducer, which changes the state which then gets logged by the subscriber as the state has now changed. Subsriber only runs wehn sate is changed.
-
-14. subsriber to output change of state value
-
-Passing your results as props into your App component:
-
+- We can use the getState() method of store to get the current state. 
+  
+```js
+//// subscribe to any changes
+store.subscribe(() => {
+// get the current state using the getState method // we can get the state, but not update it
+let state = store.getState();
 ```
 
+**NEXT STEP**  Time to  dispatch an action to call the reducer 
+
+## Dispatching Actions
+```js
+// dispatching an action
+store.dispatch({ type: "increment" });
+```
+  Each time we dispatch an action:
+  1. The **store** runs the reducer function for us
+  2. **Reducer** looks at the action type property and transforms the state appropriately. 
+  3. Once the reducer has returned a value, the function we passed to `store.subscribe()` will be run
+  4. We can then update our page appropriately.
+
+# Summary
+
+- We setup an **initial state**
+- We create a **reducer**, which takes different actions and transforms our data based on the action’s type property
+- We create our **store** passing it our reducer and the initial state
+- We **subscribe** to the store, so that we can respond whenever the state changes (usually by re-rendering the view)
+- We **dispatch** actions to the store to make changes to our state(usually in event handlers)
+
+![Redux Architecture](images/redux.png)
+
+
+
+## Working with React
+- Now let’s get Redux working with React. We’ll need to tell React to re-render the **App** component whenever the state changes. We can do this by calling **ReactDOM’s render()** method inside our subscribe function:
+
+```js
+// we update subscribe to call the ReactDOM.render method whenever the state changes
 let render = () => {
 	let state = store.getState();
-	ReactDom.render(<App count={ state.count }/>), document.get ElementById('root'));
-})
-
-store.subscribe(render);
-
-render()
-
+	ReactDom.render(
+		<App count={ state.count }/>), 
+		document.get ElementById('root')
+		);
+};
+store.subscribe(render); // render when state changes
+render()  // render when page loads using initial state
 ```
-^^^ NEEDS EXPLAINING
 
-## Redux Devtools...
-
-lets us check state.
-
-Can make changes to the state through the devtools.
-
-
-How to dispatch in our App component:
+## How to dispatch in our App component:
 
 App must not know about redux!! If they do, we have broken the app.
 
-We pass down functions from redux to our app component. App itseld knows nothiung about the effect of the fuction, but can call it through event handlers.
+We pass down functions from redux to our app component. App itself knows nothing about the effect of the function, but can call it through event handlers.
 
-```
+```js
 Index.js
 
 let render = () => {
@@ -164,46 +170,38 @@ let render = () => {
 })
 ```
 
-```
+```html
 App Component
 
 <button onClick={ handleIncrement } />
 
 ```
+## Reducer.js, Intial.js, Store.js
 
-## Cleaning and simplyfing
+Simplify by creating `reducer.js` to put all your reducer switch statements, `initial.js` to store intial value (Remember to import.)Keep `index.js` to keep **store** and **render**.
 
-create reducer.js to put all your reducer switch statements
+## Local Storage Package
 
+This is how to stop page refreshes wiping data in the browser => use local storage. Follow mark's notes for step by step (p.21)
 
-creater initial.js to store intial value
+`$ npm install redux-localstorage`
 
-Remeber to import.
+In `store.js`...
 
-Keep index.js to keep store and render.
-
-## Local Storage Package: how to stop page refreshes wiping data in the browser => use local storage. Follow notes for step by Step (p.21)
-
-- ONLY POSSIBLE BECAUSE STATE IS STORED IN ONE PLACE
-
-`npm install reduc-localstorage`
-
-import compose from redux
-import persistStore from "redux-localstorage"
+1. `import compose from 'redux'`
+2. `import persistStore from 'redux-localstorage'`
 
 let composeEnhancers = window.__REDUX_DEVTOOL_EXTENSION_COMPOSE__ || compose
 
 ## React Redux
 
-use <provider> to communicate between redux and react. Basically how we re-render the react components when our state changes in the store
+Use <provider> to communicate between redux and react. Basically how we re-render the react components when our state changes in the store
 
-1. npm install react-redux
+1. `$ npm install react-redux`
 
-2. npm start // get server up and running
+2. `$ npm start // get server up and running`
 
-3. index.js
-
-4. in index.js `import { Provider } from "react-redux"
+3. in index.js `import { Provider } from "react-redux"`
 
 
 ```js
@@ -217,12 +215,11 @@ ReactDOM.render(
 	</Provider>, 
 	document.getElementById('root'));
 ):
-
 ```
 
-The **<Provider>** attaches the Redux store to the **connect()** function
+The **Provider** attaches the Redux store to the **connect()** function
 
-4. value.js
+4. in your component eg.value.js
 
 ```js
 import { connect } from "react-redux"; // this allows us to interact with the store
@@ -234,11 +231,11 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Value);
 
 ```
-mapStateToProps is a function we use to map our state to our props. this is how we connect Reux and React 
+- mapStateToProps is a function we use to map our state to our props. this is how we connect Reux and React 
 
-connect listens out to out store.sunscribe for us.
+- connect listens out to out store.sunscribe for us.
 
-when it does this it passes in the latest version of the state into our mapStateToProps function.
+- when it does this it passes in the latest version of the state into our mapStateToProps function.
 
 
 

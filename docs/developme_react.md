@@ -1,3 +1,5 @@
+## Marks Amazing Notes
+* [React Notes (PDF)](https://github.com/Royce-Coolidge/Rowleys_Coding_CheatSheet/raw/master/docs/assets/react.pdf)
 
 ### Setting up React App
 
@@ -53,7 +55,7 @@ or better yet use a <React.Fragment> like so
 <>
 ```
 
-## Props
+## Props
 
 How to reuse components easily without manually changing them
 
@@ -74,7 +76,7 @@ add arguments to your function in {}, give arguamnt value in the component.
 One-way data flow
 
 
-### EventS 
+## Events
 
 `on` key word indicates its an event listener
 
@@ -107,11 +109,12 @@ Can't add EL to components in the App.js. has to be added to something that exis
 children. props. - is anythimng you put between the operning and closing tags of the component.
 
 
-### STATE:
+# State:
 
-Using state with class components consists of three parts: • Setting up our initial state
-• Displaying values based on this.state in our JSX
-• Updating this.state when events are fired
+Using state with class components consists of three parts: 
+1. Setting up our initial state
+2. Displaying values based on this.state in our JSX
+3. Updating this.state when events are fired
 
 Click event:
 let counter = 0;
@@ -174,26 +177,32 @@ secret is - you pass down functions to the children components
 
 ### Routes:
 
-a mapping between a URL and a piece of code to run.
+Used for mapping between a URL and a piece of code to run.
 
-make a route like this: <Route exact path='/' component={ Buttons } /> // in this case you need to write 'exact', because it is the root route.
+You make a route like this: 
+`
+<Route exact path='/' component={ Buttons } /> 
+`
 
-exact means it is only what is contained in the quotes, but no exact means that it is any url starting that way.
+^  in this case you need to write 'exact', because it is the root route.
+
+exact means it is only what is contained in the quotes, but not exact means that it is any url starting that way.
 
 Things not in a route will always show
 
 to pass props to a component called by a route:
 
-<Route path='/example' render{ () => <Figure props={ props } } />
+`<Route path='/example' render{ () => <Figure props={ props } } />`
 
 use render{ () => <Component /> } to add props
 
+## Matches:
 
-### Matches:
-
+```
 <Route path='/articles/:id' render={ ({ match }) => (
   <Article article={ match.params.id } />
 )}
+```
 
 matching allows us to match pages with urls that we don't have to explicitly declare
 
@@ -201,23 +210,26 @@ pass an object to render called match, and match.params.**example** gives us wha
 
 this gets passed through as a prop to the component.
 
-### Links
+## Links
 
-import Link from ReactRouter
+`import Link from ReactRouter`
 
-//if you put a normal link, everything on the whole page reloads, which would wipe all state as the entire page is navigated away from to go to the link, even if it's an internal link.
+If you put a normal link, everything on the whole page reloads, which would wipe all state as the entire page is navigated away from to go to the link, even if it's an internal link.
 
-use a link component: <Link to='/cats'>Cats!</Link> // or 'Router.Link' if you haven't imported it
+use a link component: 
+`<Link to='/cats'>Cats!</Link>`
+// or 'Router.Link' if you haven't imported it
 
+```
 <Route path="/squares/:colour" render={ ({ match }) => ( 
-            <Squares colour={ match.params.colour } /> 
-          )} />
+<Squares colour={ match.params.colour } /> )} />
+```
 
 The :id part of the URL is a parameter. can put anything there. 
-the match.params.colour bit inserts whatever you but in the URL parameter into the child prop, in this case colour
+the match.params.colour bit inserts whatever you put in the URL parameter into the child prop, in this case colour
 
 
-404s:
+## 404s:
 
 import Switch from ReactRouter
 import FourOhFour fom'./FourohFour';

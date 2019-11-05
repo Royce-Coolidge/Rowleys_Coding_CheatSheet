@@ -18,3 +18,6 @@
 
 **CMD-B** hide sidebar
 
+**.classname** in html files this will create a `<div class="classname"></div>` 
+
+**example_element*5** creates however many elements you define, in this case 5 elements
